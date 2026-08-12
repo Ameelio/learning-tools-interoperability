@@ -175,14 +175,14 @@ impl<'a> RegistrationRequestBuilder<'a> {
 
         let mut options: RegistrationRequestOptions = self.options;
 
-        if self.contacts.len() > 0 {
+        if !self.contacts.is_empty() {
             let contacts: Vec<Box<str>> = self.contacts.into_iter().map(Box::from).collect();
             let contacts: Box<[Box<str>]> = contacts.into_boxed_slice();
 
             options.contacts = Some(contacts);
         }
 
-        if self.scopes.len() > 0 {
+        if !self.scopes.is_empty() {
             let scopes: Vec<Scope> = self.scopes.into_iter().collect();
             let scopes: Box<[Scope]> = scopes.into_boxed_slice();
             let scopes = ScopeList(scopes);
@@ -261,6 +261,12 @@ impl<'a> RegistrationRequestBuilder<'a> {
         let policy_uri = Some(policy_uri);
 
         self.options.policy_uri = policy_uri;
+
+        self
+    }
+
+    pub fn policy_url(mut self, value: Url) -> Self {
+        self.options.policy_uri = Some(value);
 
         self
     }
