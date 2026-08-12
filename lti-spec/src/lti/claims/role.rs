@@ -35,9 +35,3 @@ pub enum Role {
     #[serde(untagged)]
     Other(Box<str>),
 }
-
-impl PartialEq<Role> for &Role {
-    fn eq(&self, other: &Role) -> bool {
-        self == other
-    }
-}

@@ -36,6 +36,6 @@ impl<'a> IntoIterator for &'a AgsLineItemsResponse {
     type IntoIter = std::slice::Iter<'a, AgsLineItem>;
 
     fn into_iter(self) -> Self::IntoIter {
-        self.0.as_ref().into_iter()
+        self.0.as_ref().iter()
     }
 }

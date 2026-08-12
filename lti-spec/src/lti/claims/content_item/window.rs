@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Window {
     pub height: u64,
     /// comma seperated list of window features.
@@ -14,7 +14,7 @@ pub struct Window {
 
 /// Window features as passed to window.open()
 /// See: [window.open() definition](https://developer.mozilla.org/en-US/docs/Web/API/Window/open).
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct WindowFeatures {
     /// height in pixels including scrollbars
     pub inner_height: Option<u16>,
@@ -32,18 +32,6 @@ pub enum WindowOutlet {
     Popup,
     #[default]
     Tab,
-}
-
-impl Default for WindowFeatures {
-    fn default() -> Self {
-        Self {
-            inner_height: None,
-            inner_width: None,
-            outlet: WindowOutlet::default(),
-            screen_x: None,
-            screen_y: None,
-        }
-    }
 }
 
 impl<'de> Deserialize<'de> for WindowFeatures {
@@ -104,12 +92,9 @@ impl Serialize for WindowFeatures {
             tokens.push(token);
         };
 
-        match self.outlet {
-            WindowOutlet::Popup => {
-                let token = format!("popup=true");
-                tokens.push(token)
-            }
-            _ => {}
+        if let WindowOutlet::Popup = self.outlet {
+            let token = "popup=true".to_string();
+            tokens.push(token)
         };
 
         if let Some(screen_x) = self.screen_x {
@@ -125,5 +110,45 @@ impl Serialize for WindowFeatures {
         let value: String = tokens.join(",");
 
         serializer.serialize_str(value.as_str())
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn it_should_serialize_default() {
+        let actual = Window::default();
+
+        let actual = serde_json::to_string(&actual).unwrap();
+
+        let expected = r#"{"height":0,"windowFeatures":"","targetName":"","width":0}"#;
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn it_should_serialize_all_features() {
+        let features = WindowFeatures {
+            inner_height: Some(10),
+            inner_width: Some(20),
+            screen_x: Some(5),
+            screen_y: Some(-5),
+            outlet: WindowOutlet::Popup,
+        };
+
+        let actual = Window {
+            height: 1,
+            features,
+            target_name: "Amazing Window".into(),
+            width: 2,
+        };
+
+        let actual = serde_json::to_string(&actual).unwrap();
+
+        let expected = r#"{"height":1,"windowFeatures":"inner_height=10,inner_width=20,popup=true,screen_x=5,screen_y=-5","targetName":"Amazing Window","width":2}"#;
+
+        assert_eq!(expected, actual);
     }
 }
