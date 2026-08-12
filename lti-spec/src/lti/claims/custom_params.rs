@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 pub struct CustomParams(pub HashMap<Box<str>, Box<str>>);
 
 impl CustomParams {
-    pub fn get<'a>(&'a self, key: impl Into<Box<str>>) -> Option<&'a str> {
+    pub fn get(&self, key: impl Into<Box<str>>) -> Option<&str> {
         match self.0.get(&key.into()) {
             Some(v) => Some(v.as_ref()),
             None => None,

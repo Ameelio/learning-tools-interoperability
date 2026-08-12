@@ -25,7 +25,7 @@ pub struct Window {
 
 /// Window features as passed to window.open()
 /// See: [window.open() definition](https://developer.mozilla.org/en-US/docs/Web/API/Window/open).
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct WindowFeatures {
     /// height in pixels including scrollbars
     inner_height: Option<u16>,
@@ -43,18 +43,6 @@ pub enum WindowOutlet {
     Popup,
     #[default]
     Tab,
-}
-
-impl Default for WindowFeatures {
-    fn default() -> Self {
-        Self {
-            inner_height: None,
-            inner_width: None,
-            outlet: WindowOutlet::default(),
-            screen_x: None,
-            screen_y: None,
-        }
-    }
 }
 
 impl<'de> Deserialize<'de> for WindowFeatures {
@@ -115,12 +103,9 @@ impl Serialize for WindowFeatures {
             tokens.push(token);
         };
 
-        match self.outlet {
-            WindowOutlet::Popup => {
-                let token = format!("popup=true");
-                tokens.push(token)
-            }
-            _ => {}
+        if let WindowOutlet::Popup = self.outlet {
+            let token = "popup=true".to_string();
+            tokens.push(token)
         };
 
         if let Some(screen_x) = self.screen_x {

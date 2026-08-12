@@ -13,24 +13,15 @@ pub enum Toggle {
 
 impl Toggle {
     pub fn is_off(&self) -> bool {
-        match self {
-            Self::Off => true,
-            _ => false,
-        }
+        matches!(self, Self::Off)
     }
 
     pub fn is_on(&self) -> bool {
-        match self {
-            Self::On => true,
-            _ => false,
-        }
+        matches!(self, Self::On)
     }
 
     pub fn is_unkown(&self) -> bool {
-        match self {
-            Self::Unknown => true,
-            _ => false,
-        }
+        matches!(self, Self::Unknown)
     }
 }
 
@@ -59,10 +50,7 @@ impl Serialize for Toggle {
 impl PartialEq for Toggle {
     /// Match if On or Off, but OptionToggle::Unknown is not equal to anything.
     fn eq(&self, other: &Self) -> bool {
-        match (self, other) {
-            (Self::On, Self::On) | (Self::Off, Self::Off) => true,
-            _ => false,
-        }
+        matches!((self, other), (Self::On, Self::On) | (Self::Off, Self::Off))
     }
 }
 

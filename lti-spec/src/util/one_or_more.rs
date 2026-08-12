@@ -74,6 +74,6 @@ mod test {
         assert!(v1.iter().any(|x| x == "one"));
         assert!(v2.iter().any(|x| x == "one"));
         assert!(v2.iter().any(|x| x == "two"));
-        assert_eq!(v1.iter().any(|x| x == "two"), false);
+        assert!(!v1.iter().any(|x| x == "two"));
     }
 }

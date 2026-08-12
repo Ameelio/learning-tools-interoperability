@@ -168,7 +168,7 @@ mod test {
 
         let epoch: i64 = 1772144586;
         let expected: DateTime<Utc> = Utc.with_ymd_and_hms(2026, 2, 26, 22, 23, 6).unwrap();
-        let future = expected.clone() + TimeDelta::days(1);
+        let future = expected + TimeDelta::days(1);
 
         let input = json!({ "foo": "1772144586" });
 

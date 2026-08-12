@@ -22,6 +22,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(tag = "type")]
+#[allow(clippy::large_enum_variant)]
 pub enum ContentItem {
     #[serde(rename = "html")]
     HtmlFragment(HtmlFragment),

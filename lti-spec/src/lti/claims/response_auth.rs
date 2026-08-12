@@ -29,7 +29,7 @@ impl Default for ResponseAuth {
 
         let expired_at: UtcDateTime = {
             // the duration of these response tokens should be very short.
-            let expired_at: DateTime<Utc> = now.clone() + TimeDelta::minutes(5);
+            let expired_at: DateTime<Utc> = now + TimeDelta::minutes(5);
 
             UtcDateTime(expired_at)
         };
