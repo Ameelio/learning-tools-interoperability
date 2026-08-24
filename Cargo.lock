@@ -660,7 +660,7 @@ dependencies = [
 
 [[package]]
 name = "learning-tools-interoperability"
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.3"
 dependencies = [
  "lti-launch",
  "lti-spec",
@@ -686,7 +686,7 @@ checksum = "0ceec5bc11778974d1bcb055b18002eba7f4b3518b6a0081b3af5f21666da9ad"
 
 [[package]]
 name = "lti-launch"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "axum",
  "axum-extra",
@@ -698,7 +698,7 @@ dependencies = [
 
 [[package]]
 name = "lti-spec"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "chrono",
  "oxilangtag",
