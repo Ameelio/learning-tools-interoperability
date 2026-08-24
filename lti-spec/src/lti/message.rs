@@ -10,7 +10,7 @@ mod submission_review_request;
 pub use config::{DeepLinkingConfig, MessageConfig, ResourceLinkConfig};
 pub use deep_linking_request::{DeepLinkingRequest, DeepLinkingRequestOptions};
 pub use deep_linking_response::{DeepLinkingResponse, DeepLinkingResponseOptions};
-pub use resource_link_request::ResourceLinkRequest;
+pub use resource_link_request::{ResourceLinkRequest, ResourceLinkRequestOptions};
 pub use submission_review_request::{SubmissionReviewRequest, SubmissionReviewRequestOptions};
 
 use serde::{Deserialize, Serialize};
