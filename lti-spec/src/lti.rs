@@ -18,7 +18,7 @@ pub use line_item::LineItem;
 pub use message::{
     DeepLinkingConfig, DeepLinkingRequest, DeepLinkingRequestOptions, DeepLinkingResponse,
     DeepLinkingResponseOptions, Message, MessageConfig, ResourceLinkConfig, ResourceLinkRequest,
-    SubmissionReviewRequest, SubmissionReviewRequestOptions,
+    ResourceLinkRequestOptions, SubmissionReviewRequest, SubmissionReviewRequestOptions,
 };
 pub use oidc_configuration::{OidcConfiguration, SubjectType, SupportedScope};
 pub use placement::Placement;
